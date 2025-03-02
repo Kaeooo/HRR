@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1E2A3A;
+        }
+        .container {
+            display: flex;
+            width: 700px;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(to right, #3C4F75, #7094DB);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            padding: 20px;
+        }
+        .left-panel img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .right-panel {
+            flex: 1;
+            background: #F5F5F5;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-panel img {
+            width: 120px;
+            margin-bottom: 15px;
+        }
+        .input-group {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .options a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .buttons button {
+            padding: 7px 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+        .btn-cancel {
+            background: #ccc;
+        }
+        .btn-login {
+            background: #0056b3;
+            color: white;
+        }
+        .btn-login:hover {
+            background: #00408d;
+        }
+        p{
+            font-size: 10px;
+            font-weight: 10px;
+        }
+        .Login{
+            font-size: 25px;
+            font-weight: bold;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
+   </head> 
+   <body>
+    <div class="container">
+        <div class="left-panel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg>
+            <h2>HR</h2>
+        </div>
+        <div class="right-panel">
+            <img src="image/people.png" alt="Login Logo" >
+            <p class="Login">L O G I N</p>
+            <div class="input-group">
+                <p>Username</p>
+                <input type="text" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <p>Password</p>
+                <input type="password" placeholder="Password">
+            </div>
+            <div class="options">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="buttons">
+                <button class="btn-cancel">กลับหน้าหลัก</button>
+                <button class="btn-login">เข้าสู่ระบบ</button>
+            </div>
+        </div>
+    </div>
+   </body>
+</html>
