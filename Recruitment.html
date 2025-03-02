@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบ HR - รับสมัครพนักงาน</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: #f5f5f5;
+        }
+        
+        /* Navigation sidebar */
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #e4e4e4;
+            color: #333;
+        }
+        
+        .sidebar-logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            background-color: #263550;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+           
+        }
+        
+        .sidebar-logo .circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1c232;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .menu-item.active {
+            background-color: #d0d0d0;
+        }
+        
+        .menu-item:hover {
+            background-color: #d5d5d5;
+        }
+        
+        .logout {
+            margin-top: auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: fixed;
+            bottom: 0;
+            width: 175px;
+            background-color: #e4e4e4;
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+        }
+        
+        .header {
+            height: 60px;
+            background-color: #263550;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;/* จัดตำแหน่งให้ไอคอนโปรไฟล์และ search bar อยู่ในแนวเดียวกัน */
+            padding: 0 20px;
+            color: white;
+        }
+        
+        .search-bar {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            width: 250px;
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+        }
+        
+        .search-bar i {
+            color: #777;
+        }
+        
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-title {
+            padding: 20px;
+            font-size: 24px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+        }
+        
+        .cards-container {
+            display: flex;
+            padding: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .card {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .card-1 {
+            background-color: #263550;
+            color: white;
+        }
+        
+        .card-2 {
+            background-color: #263550;
+            color: white;
+        }
+        
+        .card-3 {
+            background-color: #e6f0ff;
+            flex-direction: column; /*จัดองค์ประกอบภายในแนวตั้ง*/
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;/* จัดตำแหน่งเนื้อหาให้อยู่กลาง */
+            text-align: center;
+            gap:0px;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-title {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .card-subtitle {
+            color: #cccccc;
+            font-size: 14px;
+        }
+        
+        .job-count {
+            font-size: 14px;
+        }
+        
+        .position-count {
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .person-icon {
+            width: 60px;
+            height: 60px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .person-icon .head {
+            width: 30px;
+            height: 30px;
+            background-color: #7c7c7c;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .person-icon .body {
+            width: 40px;
+            height: 30px;
+            background-color: #7c7c7c;
+            border-radius: 5px;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid #60d15a;
+            border-right: 3px solid #60d15a;
+            transform: rotate(45deg);
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+        }
+        
+        .plus-icon {
+            font-size: 130px;
+            color: #3aa8c1;
+            line-height: 0.8; /* ลดระยะห่างระหว่างไอคอน */
+        }
+        .inner{
+            margin-left: 40px;
+            
+        }
+        .inner1{
+            margin-bottom: 5px;
+        }
+        .inner2{
+            margin-bottom: 5px;
+        }
+        .text {
+            margin: 0;
+            font-size: 16px; /* ขนาดของข้อความ */
+            line-height: 1;/* ลดระยะห่างระหว่างบรรทัด */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="circle">HR</div>
+        </div>
+        
+        <div class="menu-item">
+            <i>📊</i> ภาพรวม
+        </div>
+        
+        <div class="menu-item">
+            <i>👥</i> เกี่ยวกับพนักงาน
+        </div>
+
+        <div class="inner">
+            <div class="inner1">
+                <i>📝</i> ใบลา
+            </div>
+            
+            <div class="inner2">
+                <i>🏆</i> โอที
+            </div>
+            
+            <div class="inner3">
+                <i>⏱️</i> เวลาทำงาน
+            </div>
+        </div>
+        
+        
+        
+        <div class="menu-item">
+            <i>📋</i> แผนก
+        </div>
+        
+        <div class="menu-item">
+            <i>💰</i> คำนวณเงินเดือน
+        </div>
+        
+        <div class="menu-item">
+            <i>🎓</i> โครงการฝึกอบรม
+        </div>
+        
+        <div class="menu-item active">
+            <i>👥</i> รับสมัครพนักงาน
+        </div>
+        
+        <div class="menu-item">
+            <i>📈</i> การประเมินพนักงาน
+        </div>
+        
+        <div class="logout">
+            <i>🚪</i> ออกจากระบบ
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="search-bar">
+                <i>🔍</i>
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="user-profile">
+                👤
+            </div>
+        </div>
+        
+        <div class="page-title">
+            รับสมัครพนักงาน
+        </div>
+        
+        <div class="cards-container">
+            <!-- Card 1 -->
+            <div class="card card-1">
+                <div class="notification-badge">4</div>
+                <div class="card-content">
+                    <div class="person-icon">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                    </div>
+                    <div class="card-title">รับสมัครพนักงาน</div>
+                    <div class="card-subtitle">แผนก พัฒนาซอฟต์แวร์</div>
+                    <div class="job-count">ตำแหน่ง นักพัฒนาซอฟต์แวร์</div>
+                    <div class="position-count">จำนวน 3 ตำแหน่ง 1/3</div>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="card card-2">
+                <div class="card-content">
+                    <div class="person-icon">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                    </div>
+                    <div class="card-title">รับสมัครพนักงาน</div>
+                    <div class="card-subtitle">แผนก บัญชี</div>
+                    <div class="job-count">ตำแหน่ง พนักงานบัญชี</div>
+                    <div class="position-count">จำนวน 2 ตำแหน่ง 0/2</div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="card card-3">
+                <div class="plus-icon">+</div>
+                <div class="text">เพิ่มป้ายประกาศ</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
